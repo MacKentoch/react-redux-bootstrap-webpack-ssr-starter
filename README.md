@@ -4,7 +4,7 @@ React + React-Router + Redux + Bootstrap with Server side rendering, Hot Reload 
 [![Build Status](https://travis-ci.org/MacKentoch/react-redux-bootstrap-webpack-ssr-starter.svg?branch=master)](https://travis-ci.org/MacKentoch/react-redux-bootstrap-webpack-ssr-starter)
 [![Coverage Status](https://coveralls.io/repos/github/MacKentoch/react-redux-bootstrap-webpack-ssr-starter/badge.svg?branch=master)](https://coveralls.io/github/MacKentoch/react-redux-bootstrap-webpack-ssr-starter?branch=master)
 
-`ReactJS` + `Redux` + `React-Router` + `Bootstrap` starter with `server side rendering` (*and hot reload for front dev*)
+`ReactJS` + `Redux` + `React-Router v4` + `Bootstrap` starter with `server side rendering` (*and hot reload for front dev*)
 
 ## Concept behind
 
@@ -18,14 +18,14 @@ This is a port of existing starter [react-redux-bootstrap-webpack-starter](https
 - React-Redux (*Redux is not specific to ReactJS, you could easily use it with Angular2 for instance*)
 - redux-devtools-extension ([github :link:](https://github.com/zalmoxisus/redux-devtools-extension#redux-devtools-extension))
 - React-Router-Redux (*previously named react-simple-router*)
-- react-router (3.x- [github :link:](https://github.com/reactjs/react-router))
+- react-router (4.x- [github :link:](https://github.com/reactjs/react-router))
 - Bootstrap (3.x - [github :link:](https://github.com/twbs/bootstrap))
 - React-Bootstrap ([github :link:](https://github.com/react-bootstrap/react-bootstrap))
 - font-awesome ([github :link:](https://github.com/FortAwesome/Font-Awesome))
 - animate.css ([github :link:](https://github.com/daneden/animate.css))
 - classnames ([github :link:](https://github.com/JedWatson/classnames))
 - react-motion ([github :link:](https://github.com/chenglou/react-motion))
-- Webpack 1.x ([github :link:](https://github.com/webpack/webpack))
+- Webpack 2.x ([github :link:](https://github.com/webpack/webpack))
 - babel 6+ ([github :link:](https://github.com/babel/babel))
 - axios ([github :link:](https://github.com/mzabriskie/axios) *Why: simple, complete, isomorphic ...*)
 

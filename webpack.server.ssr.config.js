@@ -18,33 +18,50 @@ const serverConfig = {
     publicPath:     publicPath,
     libraryTarget:  'commonjs2'
   },
-  target: 'node',
+  target:     'node',
   node: {
     __filename: true,
-    __dirname:  true
+    __dirname: true
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        exclude: nodeModulesDir,
-        loader: 'babel'
+        test:     /\.jsx?$/,
+        exclude:  [nodeModulesDir],
+        loader:   'babel-loader'
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+        use:  ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: { importLoaders: 1 }},
+            'postcss-loader'
+          ]
+        })
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: { importLoaders: 1 }},
+            'postcss-loader',
+            'sass-loader'
+          ]
+        })
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-        loader: 'url?limit=100000&name=[name].[ext]'
+        use: [
+          {
+            loader:  'url-loader',
+            options: {
+              limit: 100000,
+              name: '[name].[ext]'
+            }
+          }
+        ]
       }
     ]
   }

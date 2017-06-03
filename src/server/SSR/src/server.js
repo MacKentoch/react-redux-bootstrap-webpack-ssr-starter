@@ -12,28 +12,30 @@ const compression   = require('compression');
 const PrettyError   = require('pretty-error');
 const Promise       = require('bluebird');
 const serialize     = require('serialize-javascript');
-// const morgan      = require('morgan');
+// const morgan        = require('morgan');
 
 // isomorphic:
 import React              from 'react';
 import { renderToString } from 'react-dom/server';
-import frontRoutes        from '../../../app/routes/Routes';
 import moment             from 'moment';
-import {
-  RouterContext,
-  match,
-  createMemoryHistory
-}                         from 'react-router';
+import { StaticRouter }   from 'react-router';
+import createHistory      from 'history/createMemoryHistory';
 import { Provider }       from 'react-redux';
 import {
   syncHistoryWithStore
 }                         from 'react-router-redux';
 import configureStore     from '../../../app/redux/store/configureStore';
+import App                from '../../../app/containers/app/App';
 
 
 const DOCS_PATH = '../../../../docs';
+const PORT      = 8083;
+const IP_ADRESS = 'localhost';
 
-const app = express();
+const app       = express();
+
+app.set('port', PORT);
+app.set('ipAdress', IP_ADRESS);
 
 // not mandatory but better looking console errors
 const pe  = new PrettyError();
@@ -81,77 +83,81 @@ app.use(
 app.set('port', 8083);
 app.set('ipAdress', 'localhost');
 
+/* eslint-enable no-unused-vars */
+/* ======================================================= */
 // $FlowIgnore
 // launch server:
 app.listen(
-  app.get('port'),
-  app.get('ipAdress'),
-  () => console.log(`Production server 🏃 (running) on ${app.get('ipAdress')}:${app.get('port')}`)
+  PORT,
+  IP_ADRESS,
+  () => console.log(`
+    =====================================================
+    -> Server (SSR) 🏃 (running) on ${IP_ADRESS}:${PORT}
+    =====================================================
+  `)
 );
 
 module.exports = app; // export app just for testing purpose
 
 
 function serverRender(req, res) {
-  const routes        = frontRoutes(); 
   const location      = req.url;
-  const memoryHistory = createMemoryHistory(req.path);
+  const context       = {};
+  // const memoryHistory = createHistory(req.path);
   let store           = configureStore();
-  const history       = syncHistoryWithStore(memoryHistory, store);
+  // const history       = syncHistoryWithStore(memoryHistory, store);
 
-  match(
-    {
-      history,
-      routes,
-      location
-    }, 
-    (err, redirectLocation, renderProps) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).end('Internal server error');
-      }
-      // in case of redirect propagate the redirect to the browser
-      if (redirectLocation) {
-        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      }
-      if (!renderProps) {
-        return res.status(404).end('Not found');
-      }
-
-      // just for demo, replace with a "usefull" async. action to feed your state
-      return fakeFetch()
-        .then(
-          ({ info }) => {
-            const currentTime   = moment().format();
-            const currentState  = store.getState(); 
-            const preWarmedState = {
-              ...currentState,
-              views: {
-                ...currentState.views,
-                somePropFromServer: info,
-                serverTime:         currentTime
-              }
-            };
-            // update store to be preloaded:
-            store = configureStore(preWarmedState);
-            const preloadedState = serialize(store.getState()); // serialize is better than JSON.stringify
-
-            const InitialView = (
-              <Provider store={store}>
-                <RouterContext {...renderProps} />
-              </Provider>
-            );
-            const html        = renderToString(InitialView);
-
-            return res
-              .status(200)
-              .set('content-type', 'text/html')
-              .send(renderFullPage(html, preloadedState));
+  // just for demo, replace with a "usefull" async. action to feed your state
+  return fakeFetch()
+    .then(
+      ({ info }) => {
+        const currentTime     = moment().format();
+        const currentState    = store.getState(); 
+        
+        const preWarmedState  = {
+          ...currentState,
+          views: {
+            ...currentState.views,
+            somePropFromServer: info,
+            serverTime:         currentTime
           }
-        )
-        .catch((error) => res.status(500).end('Internal server error: ', error));
-    }
-  );
+        };
+
+        // update store to be preloaded:
+        store = configureStore(preWarmedState);
+        
+        const InitialView = (
+          <Provider store={store}>
+            <StaticRouter
+              location={location}
+              context={context}>
+              <App />
+            </StaticRouter>
+          </Provider>
+        );
+
+        let html = '';
+        try {
+          html = renderToString(InitialView);
+        } catch (error) {
+          console.log('error: ', error);
+        }
+
+        // const html = renderToString(InitialView);
+
+        if (context.url) {
+          return res.status.end({ location: context.url });
+        }
+
+        const preloadedState = serialize(store.getState()); // serialize is better than JSON.stringify
+
+        return res
+          .status(200)
+          .set('content-type', 'text/html')
+          .send(renderFullPage(html, preloadedState));
+      }
+    )
+    .catch((error) => res.status(500).end('Internal server error: ', error));
 }
 
 function fakeFetch() {

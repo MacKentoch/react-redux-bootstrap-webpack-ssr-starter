@@ -4,8 +4,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch minimalist prod like server",
-      "program": "${workspaceRoot}/src/server/index.js"
+      "name": "Launch SPA server",
+      "program": "${workspaceRoot}/src/server/SPA/index.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch SSR server",
+      "program": "${workspaceRoot}/src/server/SSR/index.js"
     },
     {
       "type": "node",

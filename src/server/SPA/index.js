@@ -7,6 +7,11 @@ const path      = require('path');
 
 const app       = express();
 const DOCS_PATH = '../../docs/';
+const PORT      = 8082;
+const IP_ADRESS = 'localhost';
+
+app.set('port', PORT);
+app.set('ipAdress', IP_ADRESS);
 
 app.use(express.static(path.join(__dirname, DOCS_PATH)));
 
@@ -14,8 +19,12 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, DOCS_PATH, 'index.h
 
 /* eslint-disable no-console */
 app.listen(
-  8083,
-  'localhost',
-  () => console.log('Minimalist server running on localhost:8083')
+  PORT,
+  IP_ADRESS,
+  () => console.log(`
+    =====================================================
+    -> Server (SPA) 🏃 (running) on ${IP_ADRESS}:${PORT}
+    =====================================================
+  `)
 );
 /* eslint-enable no-console */
