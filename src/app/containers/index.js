@@ -1,11 +1,5 @@
 // @flow weak
 
-import App                  from './app/App';
-import ConnectedHome        from './home/Home';
-import ConnectedAbout       from './about/About';
-
-export {
-  App,
-  ConnectedHome,
-  ConnectedAbout
-};
+export { default as App }             from './app/App';
+export { default as ConnectedHome }   from './home/Home';
+export { default as ConnectedAbout }  from './about/About';

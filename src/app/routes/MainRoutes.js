@@ -4,7 +4,7 @@ import React from 'react';
 import {
   Route,
   Switch
- }                              from 'react-router-dom';
+ }                              from 'react-router';
 import {
   ConnectedHome,
   ConnectedAbout
@@ -13,7 +13,7 @@ import {
   PageNotFound
 }                               from '../views';
 
-const MainRoutes = () => {
+export const MainRoutes = () => {
   return (
     <Switch>
       <Route exact path="/" component={ConnectedHome} />

@@ -4,9 +4,10 @@
 
 const express   = require('express');
 const path      = require('path');
+const chalk     = require('chalk');
 
 const app       = express();
-const DOCS_PATH = '../../docs/';
+const DOCS_PATH = '../../../docs/';
 const PORT      = 8082;
 const IP_ADRESS = 'localhost';
 
@@ -23,7 +24,7 @@ app.listen(
   IP_ADRESS,
   () => console.log(`
     =====================================================
-    -> Server (SPA) 🏃 (running) on ${IP_ADRESS}:${PORT}
+    -> Server (${chalk.bgBlue('SPA')}) 🏃 (running) on ${chalk.green(IP_ADRESS)}:${chalk.green(PORT)}
     =====================================================
   `)
 );

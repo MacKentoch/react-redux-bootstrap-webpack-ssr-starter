@@ -6,6 +6,7 @@
 
 const express       = require('express');
 const path          = require('path');
+const chalk         = require('chalk');
 const bodyParser    = require('body-parser');
 const helmet        = require('helmet');
 const compression   = require('compression');
@@ -19,11 +20,11 @@ import React              from 'react';
 import { renderToString } from 'react-dom/server';
 import moment             from 'moment';
 import { StaticRouter }   from 'react-router';
-import createHistory      from 'history/createMemoryHistory';
+// import createHistory      from 'history/createMemoryHistory';
 import { Provider }       from 'react-redux';
-import {
-  syncHistoryWithStore
-}                         from 'react-router-redux';
+// import {
+//   syncHistoryWithStore
+// }                         from 'react-router-redux';
 import configureStore     from '../../../app/redux/store/configureStore';
 import App                from '../../../app/containers/app/App';
 
@@ -92,7 +93,7 @@ app.listen(
   IP_ADRESS,
   () => console.log(`
     =====================================================
-    -> Server (SSR) 🏃 (running) on ${IP_ADRESS}:${PORT}
+    -> Server (${chalk.bgBlue('SSR')}) 🏃 (running) on ${chalk.green(IP_ADRESS)}:${chalk.green(PORT)}
     =====================================================
   `)
 );
