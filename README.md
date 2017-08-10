@@ -4,7 +4,9 @@ React + React-Router + Redux + Bootstrap with Server side rendering, Hot Reload 
 [![Build Status](https://travis-ci.org/MacKentoch/react-redux-bootstrap-webpack-ssr-starter.svg?branch=master)](https://travis-ci.org/MacKentoch/react-redux-bootstrap-webpack-ssr-starter)
 [![Coverage Status](https://coveralls.io/repos/github/MacKentoch/react-redux-bootstrap-webpack-ssr-starter/badge.svg?branch=master)](https://coveralls.io/github/MacKentoch/react-redux-bootstrap-webpack-ssr-starter?branch=master)
 
-`ReactJS` + `Redux` + `React-Router v4` + `Bootstrap` starter with `server side rendering` (*and hot reload for front dev*)
+`ReactJS` + `Redux` + `React-Router v4` + `Bootstrap` + `webpack 3` starter with `server side rendering` (*and hot reload for front dev*)
+
+![preview](./preview/preview.png)
 
 ## Concept behind
 
@@ -13,7 +15,7 @@ This is a port of existing starter [react-redux-bootstrap-webpack-starter](https
 ## Detailed Content
 
 **Front:**
-- React JS (15.4.x+ - [github :link:](https://github.com/facebook/react))
+- React JS (15.6.x+ - [github :link:](https://github.com/facebook/react))
 - Redux (*as you application grows managing state will be a serious concern, save pain with Redux*)
 - React-Redux (*Redux is not specific to ReactJS, you could easily use it with Angular2 for instance*)
 - redux-devtools-extension ([github :link:](https://github.com/zalmoxisus/redux-devtools-extension#redux-devtools-extension))
@@ -25,7 +27,7 @@ This is a port of existing starter [react-redux-bootstrap-webpack-starter](https
 - animate.css ([github :link:](https://github.com/daneden/animate.css))
 - classnames ([github :link:](https://github.com/JedWatson/classnames))
 - react-motion ([github :link:](https://github.com/chenglou/react-motion))
-- Webpack 2.x ([github :link:](https://github.com/webpack/webpack))
+- Webpack 3.x ([github :link:](https://github.com/webpack/webpack))
 - babel 6+ ([github :link:](https://github.com/babel/babel))
 - axios ([github :link:](https://github.com/mzabriskie/axios) *Why: simple, complete, isomorphic ...*)
 

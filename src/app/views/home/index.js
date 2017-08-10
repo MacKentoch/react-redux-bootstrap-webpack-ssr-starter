@@ -3,12 +3,11 @@
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as viewsActions      from '../../redux/modules/views';
-import { Home }               from '../../views';
-
+import Home                   from './Home';
 
 const mapStateToProps = (state) => {
   return {
-    currentView:  state.views.currentView
+    currentView: state.views.currentView
   };
 };
 
@@ -21,16 +20,6 @@ const mapDispatchToProps = (dispatch) => {
     dispatch
   );
 };
-
-/*
-  without bindActionCreators:
- */
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     enterHome: () => dispatch(viewsActions.enterHome()),
-//     leaveHome: () => dispatch(viewsActions.leaveHome())
-//   };
-// };
 
 export default connect(
   mapStateToProps,

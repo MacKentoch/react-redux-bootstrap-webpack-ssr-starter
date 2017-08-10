@@ -3,7 +3,7 @@
 import moment                 from 'moment';
 import  fakeData              from '../../mock/fakeAPI.json';
 import { appConfig }          from '../../config';
-import { getLocationOrigin }  from '../../services/fetchTools';
+import { getLocationOrigin }  from '../../services/utils/getLocationOrigin';
 
 // --------------------------------
 // CONSTANTS
@@ -18,7 +18,7 @@ const ERROR_FAKE_FETCH    = 'ERROR_FAKE_FETCH';
 const initialState = {
   isFetching: false,
   actionTime: '',
-  data:       [],
+  data:       {},
   error:      {}
 };
 
@@ -38,15 +38,17 @@ export default function (state = initialState, action) {
       ...state,
       actionTime: currentTime,
       isFetching: false,
-      data:       [...action.payload]
+      data: {...action.payload}
     };
 
   case ERROR_FAKE_FETCH:
+    const error = action.error ? {  ...action.error } : {};
+
     return {
       ...state,
       actionTime: currentTime,
       isFetching: false,
-      error:      action.error ? { ...action.error } : {}
+      error
     };
 
   default:
@@ -62,13 +64,14 @@ function fakeFetch() {
     const shouldFetchMock = appConfig.DEV_MODE;
     const fetchType       = shouldFetchMock ? 'FETCH_MOCK': 'FETCH';
     const mockResult      = fakeData;
-    
+
     const url     = `${getLocationOrigin()}/${appConfig.api.fakeEndPoint}`;
     const method  = 'get';
+    const header  = {};
     const options = {};
 
-    // fetch middleware 
-    // -> you handles pure front or with back-end asyncs just by disaptching a single object
+    // fetch middleware
+    // -> you handle pure front (with mock data) or with back-end asyncs just by dispatching a single object
     //   -> just change config: appConfig.DEV_MODE
     return Promise.resolve(
       dispatch({
@@ -87,6 +90,7 @@ function fakeFetch() {
           // props only used when type = FETCH:
           url,
           method,
+          header,
           options
         }
       })
@@ -104,6 +108,7 @@ export function fakeFetchIfNeeded() {
 }
 function shouldFakeFetch(state) {
   const isFetching = state.fakeModuleWithFetch.isFetching;
+
   if (isFetching) {
     return false;
   }

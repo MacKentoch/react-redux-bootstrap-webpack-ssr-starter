@@ -1,3 +1,5 @@
+// flow weak
+
 const webpack           = require('webpack');
 const path              = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -50,7 +52,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        use:  SPLIT_STYLE 
+        use:  SPLIT_STYLE
           ? ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
@@ -66,21 +68,21 @@ const config = {
       },
       {
         test: /\.scss$/,
-        use:  SPLIT_STYLE 
-        ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
+        use:  SPLIT_STYLE
+          ? ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {loader: 'css-loader', options: { importLoaders: 1 }},
+              'postcss-loader',
+              'sass-loader'
+            ]
+          })
+          : [
+            'style-loader',
             {loader: 'css-loader', options: { importLoaders: 1 }},
             'postcss-loader',
             'sass-loader'
           ]
-        })
-        : [
-          'style-loader',
-          {loader: 'css-loader', options: { importLoaders: 1 }},
-          'postcss-loader',
-          'sass-loader'
-        ]
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
@@ -102,7 +104,7 @@ const config = {
     new ExtractTextPlugin('app.styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name:     'vendor',
-      filename: 'app.vendor.bundle.js' 
+      filename: 'app.vendor.bundle.js'
     })
   ]
 };
@@ -112,8 +114,9 @@ const config = {
 */
 function getImplicitGlobals() {
   return new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery'
+    $:      'jquery',
+    jQuery: 'jquery',
+    jquery: 'jquery'
   });
 }
 

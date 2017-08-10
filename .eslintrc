@@ -5,34 +5,69 @@
     "node": true,
     "es6": true,
     "mocha": true,
+    "jest": true
   },
-  "plugins": ["react"],
-
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true,
-    "jsx": true
+  "plugins": [
+    "react",
+    "mocha",
+    "flowtype"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  // eslint > 2.x
+  "parserOptions": {
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "binaryLiterals": true,
+      "blockBindings": true,
+      "classes": true,
+      "defaultParams": true,
+      "destructuring": true,
+      "forOf": true,
+      "generators": true,
+      "modules": true,
+      "objectLiteralComputedProperties": true,
+      "objectLiteralDuplicateProperties": true,
+      "objectLiteralShorthandMethods": true,
+      "objectLiteralShorthandProperties": true,
+      "octalLiterals": true,
+      "regexUFlag": true,
+      "regexYFlag": true,
+      "spread": true,
+      "superInFunctions": true,
+      "templateStrings": true,
+      "unicodeCodePointEscapes": true,
+      "globalReturn": true,
+      "jsx": true
+    }
   },
-
+  // // eslint 1.x (deprecated):
+  // "ecmaFeatures": {
+  //   "arrowFunctions": true,
+  //   "binaryLiterals": true,
+  //   "blockBindings": true,
+  //   "classes": true,
+  //   "defaultParams": true,
+  //   "destructuring": true,
+  //   "forOf": true,
+  //   "generators": true,
+  //   "modules": true,
+  //   "objectLiteralComputedProperties": true,
+  //   "objectLiteralDuplicateProperties": true,
+  //   "objectLiteralShorthandMethods": true,
+  //   "objectLiteralShorthandProperties": true,
+  //   "octalLiterals": true,
+  //   "regexUFlag": true,
+  //   "regexYFlag": true,
+  //   "spread": true,
+  //   "superInFunctions": true,
+  //   "templateStrings": true,
+  //   "unicodeCodePointEscapes": true,
+  //   "globalReturn": true,
+  //   "jsx": true
+  // },
   "rules": {
 
     //
@@ -239,6 +274,6 @@
     "react/prop-types": 2, // Prevent missing props validation in a React component definition
     "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
     "react/self-closing-comp": 2, // Prevent extra closing tags for components without children
-    "react/wrap-multilines": 2 // Prevent missing parentheses around multilines JSX
+    "react/jsx-wrap-multilines": 2 // Replaces "react/wrap-multilines": Prevent missing parentheses around multilines JSX
   }
 }

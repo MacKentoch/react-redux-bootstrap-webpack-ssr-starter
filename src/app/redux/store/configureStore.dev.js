@@ -1,7 +1,11 @@
 // @flow weak
 
-import { createStore, compose, applyMiddleware } from 'redux';
-import createLogger             from 'redux-logger';
+import {
+  createStore,
+  compose,
+  applyMiddleware
+}                               from 'redux';
+import { createLogger }         from 'redux-logger'
 import thunkMiddleware          from 'redux-thunk';
 import reducer                  from '../modules/reducers';
 import fetchMiddleware          from '../middleware/fetchMiddleware';
@@ -26,7 +30,7 @@ const enhancer = composeEnhancers(
     thunkMiddleware,
     fetchMiddleware,
     loggerMiddleware // logger at the end
-  ) 
+  )
 );
 
 export default function configureStore(initialState) {

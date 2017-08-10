@@ -8,10 +8,7 @@ import {
   NavigationBar,
   BackToTop
 }                             from '../../components';
-import navigationModel        from '../../models/navigation.json';
-import { bindActionCreators } from 'redux';
-import { connect }            from 'react-redux';
-import * as viewsActions      from '../../redux/modules/views';
+import navigationModel        from '../../config/navigation.json';
 import MainRoutes             from '../../routes/MainRoutes';
 import { withRouter }         from 'react-router';
 
@@ -29,6 +26,8 @@ class App extends Component {
 
   render() {
     const { navModel } = this.state;
+    const { match: { url } } = this.props;
+
     return (
       <div id="appContainer">
         <NavigationBar
@@ -48,35 +47,19 @@ class App extends Component {
     );
   }
 
-  handleLeftNavItemClick = (event, viewName) => {
+  handleLeftNavItemClick = (
+    event: SyntheticInputEvent,
+    viewName: string
+  ) => {
     // something to do here?
   }
 
-  handleRightNavItemClick = (event, viewName) => {
+  handleRightNavItemClick = (
+    event: SyntheticInputEvent,
+    viewName
+  ) => {
     // something to do here?
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentView:  state
-  };
-};
-
-// "bindActionCreators" use-case is to pass dispatch to "store non aware children components" (but I feel like it is a good habbit to use it everytime)
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions : bindActionCreators(
-      {
-        ...viewsActions
-      },
-      dispatch)
-  };
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(App);
